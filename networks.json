@@ -3,6 +3,14 @@
     "PoolManager": {
       "address": "0x6971599124195Ae42543b0613dF9A417D89c4944",
       "startBlock": 9188479
+    },
+    "PositionManager": {
+      "address": "0x8363bEAEc310B579D26CBdcA175E4853a7bcFDC6",
+      "startBlock": 9188494
+    },
+    "SwapRouter": {
+      "address": "0x1b4692Bd0EB88cB0a0C5F0E4f6950FA30F6db94a",
+      "startBlock": 9188494
     }
   }
 }
