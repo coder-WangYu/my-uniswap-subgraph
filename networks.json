@@ -1,5 +1,5 @@
 {
-  "mainnet": {
+  "sepolia": {
     "PoolManager": {
       "address": "0x6971599124195Ae42543b0613dF9A417D89c4944",
       "startBlock": 9188479
