@@ -52,3 +52,33 @@ type Swap @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type Token @entity(immutable: false) {
+  id: Bytes! # token address
+  name: String!
+  symbol: String!
+  decimals: Int!
+  totalSupply: BigInt!
+  # 统计字段
+  totalVolumeUSD: BigDecimal!
+  totalLiquidityUSD: BigDecimal!
+  txCount: BigInt!
+  # 价格相关
+  priceUSD: BigDecimal
+  # 时间戳
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type TokenDayData @entity(immutable: false) {
+  id: ID! # token address + day timestamp
+  token: Token!
+  date: Int! # day timestamp
+  volumeUSD: BigDecimal!
+  volumeETH: BigDecimal!
+  txCount: BigInt!
+  priceUSD: BigDecimal
+  liquidityUSD: BigDecimal!
+  priceChangeUSD: BigDecimal!
+  priceChangePercent: BigDecimal!
+}
