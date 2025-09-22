@@ -1,84 +1,54 @@
-type PoolCreated @entity(immutable: true) {
-  id: Bytes!
-  token0: Bytes! # address
-  token1: Bytes! # address
-  index: BigInt! # uint32
-  tickLower: Int! # int24
-  tickUpper: Int! # int24
+type Pools @entity(immutable: true) {
+  id: Bytes! # 池子地址(主键)
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  token0: Tokens! # 输入代币
+  token1: Tokens! # 输出代币
   fee: Int! # uint24
-  pool: Bytes! # address
+}
+
+type Positions @entity(immutable: true) {
+  id: Bytes! # positionID(主键)
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  tokenId: BigInt! # NFT token ID
+  owner: Bytes! # 所有者
+  token0: Tokens! # 输入代币
+  token1: Tokens! # 输出代币
+  changeType: String # 变更类型(mint/burn)
+  liquidity: BigInt! # 流动性数量
+  amount0: BigInt! # 代币数量
+  amount1: BigInt! # 代币数量
+  tickLower: Int! # 下界
+  tickUpper: Int! # 上界
+  fee: Int! # 手续费
 }
-type Approval @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  approved: Bytes! # address
-  tokenId: BigInt! # uint256
+
+type Swaps @entity(immutable: true) {
+  id: Bytes! # 交易地址(主键)
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  poolAddress: Bytes! # 池子地址
+  sender: Bytes! # 发送者
+  recipient: Bytes! # 接收者
+  tokenIn: Bytes! # 输入代币
+  tokenOut: Bytes! # 输出代币
+  amountIn: BigInt! # 输入数量
+  amountOut: BigInt! # 输出数量
+  sqrtPrice: BigInt!
+  liquidity: BigInt!
+  tick: Int!
 }
 
-type ApprovalForAll @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
-  operator: Bytes! # address
-  approved: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Transfer @entity(immutable: true) {
-  id: Bytes!
-  from: Bytes! # address
-  to: Bytes! # address
-  tokenId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Swap @entity(immutable: true) {
-  id: Bytes!
-  sender: Bytes! # address
-  zeroForOne: Boolean! # bool
-  amountIn: BigInt! # uint256
-  amountInRemaining: BigInt! # uint256
-  amountOut: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Token @entity(immutable: false) {
-  id: Bytes! # token address
-  name: String!
-  symbol: String!
-  decimals: Int!
-  totalSupply: BigInt!
-  # 统计字段
-  totalVolumeUSD: BigDecimal!
-  totalLiquidityUSD: BigDecimal!
-  txCount: BigInt!
-  # 价格相关
-  priceUSD: BigDecimal
-  # 时间戳
-  createdAt: BigInt!
-  updatedAt: BigInt!
-}
-
-type TokenDayData @entity(immutable: false) {
-  id: ID! # token address + day timestamp
-  token: Token!
-  date: Int! # day timestamp
-  volumeUSD: BigDecimal!
-  volumeETH: BigDecimal!
-  txCount: BigInt!
-  priceUSD: BigDecimal
-  liquidityUSD: BigDecimal!
-  priceChangeUSD: BigDecimal!
-  priceChangePercent: BigDecimal!
+type Tokens @entity(immutable: false) {
+  id: Bytes! # 代币地址(主键)
+  name: String! # 代币名称
+  symbol: String! # 代币符号
+  decimals: Int! # 代币精度
+  totalSupply: BigInt! # 代币总量
+  totalVolumeUSD: BigDecimal! # 代币总交易量
+  totalLiquidityUSD: BigDecimal! # 代币总流动性
 }

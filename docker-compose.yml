@@ -19,6 +19,7 @@ services:
       postgres_pass: let-me-in
       postgres_db: graph-node
       ipfs: "ipfs:5001"
+      # ethereum: "sepolia:https://sepolia.infura.io/v3/8765001bd27946c9a18a94839e75cd4d"
       ethereum: "sepolia:https://sepolia.infura.io/v3/bd53db44b045458e827701c6bc02a161"
       GRAPH_LOG: info
   ipfs:

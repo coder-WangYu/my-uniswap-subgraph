@@ -17,11 +17,15 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - PoolCreated
+        - Pools
+        - Tokens
       abis:
         - name: PoolManager
           file: ./abis/PoolManager.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: Pool
+          file: ./abis/Pool.json
       eventHandlers:
         - event: PoolCreated(address,address,uint32,int24,int24,uint24,address)
           handler: handlePoolCreated
@@ -38,21 +42,19 @@ dataSources:
       apiVersion: 0.0.9
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - ApprovalForAll
-        - Transfer
+        - Pools
+        - Tokens
+        - Positions
       abis:
         - name: PositionManager
           file: ./abis/PositionManager.json
-        - name: ERC20
-          file: ./abis/ERC20.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,indexed uint256)
-          handler: handleApproval
-        - event: ApprovalForAll(indexed address,indexed address,bool)
-          handler: handleApprovalForAll
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
+        - event: IncreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleIncrease
+        - event: DecreaseLiquidity(indexed uint256,uint128,uint256,uint256)
+          handler: handleDecrease
       file: ./src/position-manager.ts
   - kind: ethereum
     name: SwapRouter
@@ -66,12 +68,16 @@ dataSources:
       apiVersion: 0.0.9
       language: wasm/assemblyscript
       entities:
-        - Swap
+        - Swaps
+        - Pools
+        - Tokens
       abis:
         - name: SwapRouter
           file: ./abis/SwapRouter.json
         - name: ERC20
           file: ./abis/ERC20.json
+        - name: Pool
+          file: ./abis/Pool.json
       eventHandlers:
         - event: Swap(indexed address,bool,uint256,uint256,uint256)
           handler: handleSwap
